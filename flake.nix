@@ -63,26 +63,26 @@
           endif
 
           if executable('rust-analyzer')
-            autocmd User lsp_setup call lsp#register_server({
-              \ 'name': 'rust-analyzer',
-              \ 'cmd': 'rust-analyzer',
-              \ 'allowlist: ['rust'],
-              \ 'initialization_options': {
-              \   'cargo': { 
-              \     'buildScripts': {
-              \         'enable': v:true,
-              \      },
-              \     'procMacro': {
-              \         'enable': v:true,
-              \      }
-              \   },
-              \   'rust-analyzer': {
-              \     'check': {
-              \       'command': 'clippy',
-              \      }
-              \   }
-              \ },
-              \ })
+              au User lsp_setup call lsp#register_server({
+                  \ 'name': 'rust-analyzer',
+                  \ 'cmd': {server_info->['rust-analyzer']},
+                  \ 'allowlist': ['rust'],
+                  \ 'initialization_options' : {
+                  \   'cargo': {
+                  \       'buildScripts': {
+                  \           'enable': v:true,
+                  \         },
+                  \       'procMacro': {
+                  \           'enable': v:true,
+                  \        },
+                  \    },
+                  \   'rust-analyzer': {
+                  \       'check': {
+                  \           'command': 'clippy'
+                  \        }
+                  \   }
+                  \   }
+                  \ })
           endif
 
           function! s:on_lsp_buffer_enabled() abort
