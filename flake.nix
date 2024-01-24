@@ -57,7 +57,7 @@
           if executable('clangd')
             autocmd User lsp_setup call lsp#register_server({
               \ 'name': 'clangd',
-              \ 'cmd': 'clangd --clang-tidy --enable-config',
+              \ 'cmd': ['clangd', '--clang-tidy', '--enable-config'],
               \ 'allowlist': ['c', 'cpp', 'objc', 'objcpp'],
               \ })
           endif
