@@ -85,6 +85,41 @@
               \ })
           endif
 
+          if executable('svelte-language-server')
+            autocmd User lsp_setup call lsp#register_server({
+              \ 'name': 'svelte-language-server',
+              \ 'cmd': ['svelte-language-server', '--stdio'],
+              \ 'allowlist': ['svelte'],
+              \ })
+          endif
+
+          if executable('typescript-language-server')
+            autocmd User lsp_setup call lsp#register_server({
+              \ 'name': 'typescript-language-server',
+              \ 'cmd': ['typescript-language-server', '--stdio'],
+              \ 'allowlist': ['javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'typescript.tsx'],
+              \ 'initialization_options': {
+              \   'preferences': {
+              \     'includeInlayParameterNameHintsWhenArgumentMatchesName': v:true,
+              \     'includeInlayParameterNameHints': 'all',
+              \     'includeInlayVariableTypeHints': v:true,
+              \     'includeInlayPropertyDeclarationTypeHints': v:true,
+              \     'includeInlayFunctionParameterTypeHints': v:true,
+              \     'includeInlayEnumMemberValueHints': v:true,
+              \     'includeInlayFunctionLikeReturnTypeHints': v:true
+              \   },
+              \ }
+              \ })
+          endif
+
+          if executable('nil')
+            autocmd User lsp_setup call lsp#register_server({
+              \ 'name': 'nil',
+              \ 'cmd': ['nil'],
+              \ 'whitelist': ['nix'],
+              \ })
+          endif
+
           function! s:on_lsp_buffer_enabled() abort
             setlocal omnifunc=lsp#complete
             if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
